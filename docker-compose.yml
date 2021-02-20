@@ -1,0 +1,73 @@
+version: "2.1"
+services:
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    env_file: .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${VOLUME_DIR}/portainer:/data
+    ports:
+      - 9000:9000
+    restart: unless-stopped
+
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    env_file: .env
+    environment:
+      - TZ=America/Chicago
+      - WEBPASSWORD=${PIHOLE_WEBPASSWORD}
+      - DNS1=9.9.9.9
+      - DNS2=1.0.0.1
+    volumes:
+      - ${VOLUME_DIR}/pihole/pihole:/etc/pihole
+      - ${VOLUME_DIR}/pihole/dnsmasq.d:/etc/dnsmasq.d
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 80:80/tcp
+      - 443:443/tcp
+    cap_add:
+      - NET_ADMIN
+    dns:
+      - 127.0.0.1
+      - 1.0.0.1
+    hostname: pihole
+    restart: unless-stopped
+
+  unifi:
+    image: ghcr.io/linuxserver/unifi-controller
+    container_name: unifi
+    env_file: .env
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ${VOLUME_DIR}/unifi:/config
+    ports:
+      - 3478:3478/udp
+      - 10001:10001/udp
+      - 8080:8080
+      - 8443:8443
+      - 1900:1900/udp #optional
+      - 8843:8843 #optional
+      - 8880:8880 #optional
+      - 6789:6789 #optional
+      - 5514:5514/udp #optional
+    restart: unless-stopped
+
+  homebridge:
+    container_name: homebridge
+    image: oznu/homebridge:latest
+    env_file: .env
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - HOMEBRIDGE_CONFIG_UI=1
+      - HOMEBRIDGE_CONFIG_UI_PORT=4033
+      - TZ=America/Chicago
+    volumes:
+      - ${VOLUME_DIR}/homebridge:/homebridge
+    network_mode: host
+    restart: unless-stopped
