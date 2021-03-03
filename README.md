@@ -1,9 +1,10 @@
 # @gotdibbs' Home Docker Setup
 
  - Pihole for local DNS cache and malware blocking
+ - Cloudflared for DNS over HTTPS (Pihole depends on this)
  - Portainer for managing docker containers / images through a web UI
  - Homebridge for linking Kasa and Xbox up to Apple Homekit
- - Unifi Controller for home LAN
+ - Unifi Controller for home LAN, WiFi
 
 ## Installation
 
