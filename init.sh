@@ -9,3 +9,7 @@ mkdir volumes
 cp .env.example .env
 
 sudo chmod +x ./update.sh
+
+# Personal preferences
+#git config --global core.editor "vim"
+#git config --global credential.helper store
