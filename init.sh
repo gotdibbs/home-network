@@ -1,8 +1,10 @@
 #!/bin/sh
 
-sudo apt-get install docker-ce docker-compose vim
+#curl -fSLs https://get.docker.com | sh
+apt-get install docker-compose
+apt-get install vim
 
-mkdir volumes/
+mkdir volumes
 
 cp .env.example .env
 
