@@ -2,16 +2,16 @@ version: "2.1"
 
 services:
   # Web app to monitor docker containers
-  portainer:
-    container_name: portainer
-    image: portainer/portainer-ce:latest
-    env_file: .env
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${VOLUME_DIR}/portainer:/data
-    ports:
-      - 9000:9000
-    restart: unless-stopped
+#  portainer:
+#    container_name: portainer
+#    image: portainer/portainer-ce:latest
+#    env_file: .env
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - ${VOLUME_DIR}/portainer:/data
+#    ports:
+#      - 9000:9000
+#    restart: unless-stopped
 
   # DNS over HTTPS
   cloudflared:
@@ -25,7 +25,7 @@ services:
   # DNS Filtering
   pihole:
     container_name: pihole
-    image: pihole/pihole:latest
+    image: pihole/pihole
     env_file: .env
     environment:
       - TZ=America/Chicago
