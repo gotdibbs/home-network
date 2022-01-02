@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #curl -fSLs https://get.docker.com | sh
-apt-get install docker-compose
+#pip3 install setuptools_rust docker-compose
 apt-get install vim
 
 mkdir volumes

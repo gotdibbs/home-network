@@ -1,4 +1,4 @@
-version: "2.1"
+version: '3.9'
 
 services:
   # Backup
@@ -7,6 +7,7 @@ services:
     image: offen/docker-volume-backup:latest
     restart: always
     env_file: ./backup.env
+    entrypoint: backup
     volumes:
       - ${VOLUME_DIR}/pihole/pihole:/backup/pihole/pihole:ro
       - ${VOLUME_DIR}/pihole/dnsmasq.d:/backup/pihole/dnsmasq.d:ro
@@ -19,6 +20,8 @@ services:
     dns:
       - 9.9.9.9
       - 1.0.0.1
+    profiles:
+      - backup
 
   # DNS over HTTPS
   cloudflared:
