@@ -52,7 +52,7 @@ services:
     ports:
       - 53:53/tcp
       - 53:53/udp
-      - 80:80/tcp
+      - 3141:80/tcp
       - 443:443/tcp
     cap_add:
       - NET_ADMIN
@@ -109,6 +109,18 @@ services:
     volumes:
       - ${VOLUME_DIR}/homebridge:/homebridge
     network_mode: host
+    restart: unless-stopped
+    labels:
+      - docker-volume-backup.stop-during-backup=true
+
+  # Create a *home*page
+  homer:
+    container_name: homer
+    image: b4bz/homer:latest
+    volumes:
+      - ${VOLUME_DIR}/homer:/www/assets
+    ports:
+      - 80:8080/tcp
     restart: unless-stopped
     labels:
       - docker-volume-backup.stop-during-backup=true

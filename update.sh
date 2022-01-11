@@ -18,14 +18,14 @@ docker-compose pull
 # stop all containers under default profile
 docker-compose down
 
-# Run backup script
-docker-compose run backup
-
 # Restart all containers so they use the latest images
 docker-compose up -d
 
 # Cleanup old images
 sudo docker image prune -a -f
+
+# Run backup script, has to run after containers are restarted
+docker-compose run backup
 
 # Stop logging commands as they're run
 set +x
